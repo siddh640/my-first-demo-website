@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import { MessageCircle, TrendingUp, Calendar, Bell, Star, BookOpen, Clock, Award, User, Mail, Phone } from 'lucide-react'
+import { MessageCircle, TrendingUp, Calendar, Bell, Star, BookOpen, Clock, Award, User, Mail, Phone, Users } from 'lucide-react'
 import { useStudentData } from '../hooks/useStudentData'
 import { useTeachers } from '../hooks/useTeachers'
 import { parentAPI } from '../lib/supabase'
 import ParentTeacherChat from './ParentTeacherChat'
+import ParentCommunityChat from './ParentCommunityChat'
 
 // Mock student ID for demo - in real app this would come from authentication
 const DEMO_STUDENT_ID = 'demo-student-1'
@@ -423,6 +424,15 @@ const ParentDashboard: React.FC = () => {
               >
                 <MessageCircle size={16} className="me-2" />
                 Live Chat
+              </button>
+            </li>
+            <li className="nav-item">
+              <button 
+                className={`nav-link ${activeTab === 'community' ? 'active' : ''}`}
+                onClick={() => setActiveTab('community')}
+              >
+                <Users size={16} className="me-2" />
+                Parent Community
               </button>
             </li>
           </ul>
