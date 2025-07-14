@@ -88,7 +88,10 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label for="phone" class="form-label">Phone (optional)</label>
-                                        <input type="tel" class="form-control" id="phone">
+                                        <input type="tel" class="form-control" id="phone" pattern="[0-9+\-\s\(\)]*" title="Please enter only numbers, spaces, hyphens, parentheses, and plus signs">
+                                        <div class="invalid-feedback">
+                                            Please enter a valid phone number (numbers only)
+                                        </div>
                                     </div>
                                     <div class="col-12">
                                         <label for="subject" class="form-label">Subject</label>
@@ -270,10 +273,60 @@
         // Form validation and submission
         document.addEventListener('DOMContentLoaded', function() {
             const contactForm = document.getElementById('contactForm');
+            const phoneInput = document.getElementById('phone');
+            
+            // Phone number validation
+            if (phoneInput) {
+                phoneInput.addEventListener('input', function(e) {
+                    // Remove any non-numeric characters except +, -, (, ), and spaces
+                    let value = e.target.value;
+                    let cleanValue = value.replace(/[^0-9+\-\s\(\)]/g, '');
+                    
+                    if (value !== cleanValue) {
+                        e.target.value = cleanValue;
+                        // Show alert for invalid characters
+                        if (!document.querySelector('.phone-alert')) {
+                            const alert = document.createElement('div');
+                            alert.className = 'alert alert-warning alert-dismissible fade show phone-alert mt-2';
+                            alert.innerHTML = `
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                Only numbers, spaces, hyphens, parentheses, and plus signs are allowed in phone numbers.
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            `;
+                            phoneInput.parentNode.appendChild(alert);
+                            
+                            // Auto-hide alert after 3 seconds
+                            setTimeout(() => {
+                                if (alert.parentNode) {
+                                    alert.remove();
+                                }
+                            }, 3000);
+                        }
+                    }
+                });
+                
+                // Validate on blur
+                phoneInput.addEventListener('blur', function(e) {
+                    const value = e.target.value.trim();
+                    if (value && !/^[0-9+\-\s\(\)]+$/.test(value)) {
+                        e.target.classList.add('is-invalid');
+                    } else {
+                        e.target.classList.remove('is-invalid');
+                    }
+                });
+            }
             
             if (contactForm) {
                 contactForm.addEventListener('submit', function(event) {
                     event.preventDefault();
+                    
+                    // Validate phone number before submission
+                    const phoneValue = phoneInput.value.trim();
+                    if (phoneValue && !/^[0-9+\-\s\(\)]+$/.test(phoneValue)) {
+                        phoneInput.classList.add('is-invalid');
+                        alert('Please enter a valid phone number with only numbers, spaces, hyphens, parentheses, and plus signs.');
+                        return;
+                    }
                     
                     // Basic form validation would go here
                     

@@ -2,11 +2,13 @@ import React, { useState } from 'react'
 import { User, MessageCircle, BookOpen, TrendingUp, Star, Calendar, Plus, Edit, Save, X } from 'lucide-react'
 import { useStudentData } from '../hooks/useStudentData'
 import { feedbackAPI, assignmentAPI, progressAPI } from '../lib/supabase'
+import ParentTeacherChat from './ParentTeacherChat'
 
 const TeacherDashboard: React.FC = () => {
   const [selectedStudent, setSelectedStudent] = useState('demo-student-1')
   const [showAddFeedback, setShowAddFeedback] = useState(false)
   const [showAddAssignment, setShowAddAssignment] = useState(false)
+  const [showChat, setShowChat] = useState(false)
   const { student, feedback, assignments, progress, loading, addFeedback, refreshData } = useStudentData(selectedStudent)
 
   const [newFeedback, setNewFeedback] = useState({
@@ -273,9 +275,23 @@ const TeacherDashboard: React.FC = () => {
                   <BookOpen size={16} className="me-2" />
                   Create Assignment
                 </button>
+                <button 
+                  className="btn btn-outline-success me-2"
+                  onClick={() => setShowChat(true)}
+                >
+                  <MessageCircle size={16} className="me-2" />
+                  Chat with Parent
+                </button>
                 <button className="btn btn-outline-success">
                   <TrendingUp size={16} className="me-2" />
                   Update Progress
+                </button>
+                <button 
+                  className="btn btn-outline-warning"
+                  onClick={() => setShowChat(true)}
+                >
+                  <MessageCircle size={16} className="me-2" />
+                  Chat with Parent
                 </button>
               </div>
             </div>
@@ -452,6 +468,35 @@ const TeacherDashboard: React.FC = () => {
                   </button>
                 </div>
               </form>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Chat Modal */}
+      {showChat && (
+        <div className="modal show d-block" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
+          <div className="modal-dialog modal-lg">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Chat with Parent</h5>
+                <button 
+                  type="button" 
+                  className="btn-close"
+                  onClick={() => setShowChat(false)}
+                ></button>
+              </div>
+              <div className="modal-body p-0">
+                <ParentTeacherChat
+                  currentUserId="demo-teacher-1"
+                  currentUserType="teacher"
+                  currentUserName="Ms. Sarah Johnson"
+                  recipientId="demo-parent-1"
+                  recipientName="Robert Johnson"
+                  studentId={selectedStudent}
+                  studentName={student?.name || "Emma Johnson"}
+                />
+              </div>
             </div>
           </div>
         </div>

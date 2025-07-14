@@ -3,6 +3,7 @@ import { MessageCircle, TrendingUp, Calendar, Bell, Star, BookOpen, Clock, Award
 import { useStudentData } from '../hooks/useStudentData'
 import { useTeachers } from '../hooks/useTeachers'
 import { parentAPI } from '../lib/supabase'
+import ParentTeacherChat from './ParentTeacherChat'
 
 // Mock student ID for demo - in real app this would come from authentication
 const DEMO_STUDENT_ID = 'demo-student-1'
@@ -415,6 +416,15 @@ const ParentDashboard: React.FC = () => {
                 Contact Teacher
               </button>
             </li>
+            <li className="nav-item">
+              <button 
+                className={`nav-link ${activeTab === 'chat' ? 'active' : ''}`}
+                onClick={() => setActiveTab('chat')}
+              >
+                <MessageCircle size={16} className="me-2" />
+                Live Chat
+              </button>
+            </li>
           </ul>
         </div>
       </div>
@@ -533,6 +543,60 @@ const ParentDashboard: React.FC = () => {
                   <h6>Dr. Elena Martinez</h6>
                   <small className="text-muted">● Offline</small>
                   <p className="small text-muted mt-1">Available during office hours</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {activeTab === 'chat' && (
+        <div className="row">
+          <div className="col-12">
+            <h3 className="mb-4">Live Chat with Teachers</h3>
+            <div className="row">
+              <div className="col-lg-8">
+                <ParentTeacherChat
+                  currentUserId="demo-parent-1"
+                  currentUserType="parent"
+                  currentUserName="Robert Johnson"
+                  recipientId="demo-teacher-1"
+                  recipientName="Ms. Sarah Johnson"
+                  studentId={DEMO_STUDENT_ID}
+                  studentName={student?.name || "Emma Johnson"}
+                />
+              </div>
+              <div className="col-lg-4">
+                <div className="card shadow-sm">
+                  <div className="card-header bg-light">
+                    <h5 className="mb-0">Chat Guidelines</h5>
+                  </div>
+                  <div className="card-body">
+                    <ul className="list-unstyled">
+                      <li className="mb-2">
+                        <i className="fas fa-check text-success me-2"></i>
+                        Be respectful and professional
+                      </li>
+                      <li className="mb-2">
+                        <i className="fas fa-check text-success me-2"></i>
+                        Focus on your child's education
+                      </li>
+                      <li className="mb-2">
+                        <i className="fas fa-check text-success me-2"></i>
+                        Teachers respond within 24 hours
+                      </li>
+                      <li className="mb-2">
+                        <i className="fas fa-check text-success me-2"></i>
+                        Use formal language
+                      </li>
+                    </ul>
+                    <div className="alert alert-info mt-3">
+                      <small>
+                        <i className="fas fa-info-circle me-1"></i>
+                        All conversations are recorded for quality assurance
+                      </small>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
