@@ -613,6 +613,104 @@ const ParentDashboard: React.FC = () => {
           </div>
         </div>
       )}
+
+      {activeTab === 'community' && (
+        <div className="row">
+          <div className="col-12">
+            <h3 className="mb-4">Parent Community</h3>
+            <div className="row">
+              <div className="col-lg-8">
+                <ParentCommunityChat
+                  currentParentId="demo-parent-1"
+                  currentParentName="Robert Johnson"
+                  studentName={student?.name || "Emma Johnson"}
+                />
+              </div>
+              <div className="col-lg-4">
+                <div className="card shadow-sm mb-4">
+                  <div className="card-header bg-light">
+                    <h5 className="mb-0">Community Stats</h5>
+                  </div>
+                  <div className="card-body">
+                    <div className="row text-center">
+                      <div className="col-6 mb-3">
+                        <h4 className="text-primary mb-1">24</h4>
+                        <small className="text-muted">Active Parents</small>
+                      </div>
+                      <div className="col-6 mb-3">
+                        <h4 className="text-success mb-1">156</h4>
+                        <small className="text-muted">Discussions</small>
+                      </div>
+                      <div className="col-6">
+                        <h4 className="text-info mb-1">89</h4>
+                        <small className="text-muted">Helpful Tips</small>
+                      </div>
+                      <div className="col-6">
+                        <h4 className="text-warning mb-1">12</h4>
+                        <small className="text-muted">This Week</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="card shadow-sm mb-4">
+                  <div className="card-header bg-light">
+                    <h5 className="mb-0">Popular Topics</h5>
+                  </div>
+                  <div className="card-body">
+                    <div className="mb-2">
+                      <span className="badge bg-info me-2">📚</span>
+                      <small>Homework Help</small>
+                      <span className="badge bg-light text-dark ms-auto">23 posts</span>
+                    </div>
+                    <div className="mb-2">
+                      <span className="badge bg-success me-2">🏆</span>
+                      <small>Student Achievements</small>
+                      <span className="badge bg-light text-dark ms-auto">18 posts</span>
+                    </div>
+                    <div className="mb-2">
+                      <span className="badge bg-warning me-2">📅</span>
+                      <small>School Events</small>
+                      <span className="badge bg-light text-dark ms-auto">15 posts</span>
+                    </div>
+                    <div className="mb-2">
+                      <span className="badge bg-primary me-2">💬</span>
+                      <small>General Discussion</small>
+                      <span className="badge bg-light text-dark ms-auto">12 posts</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="card shadow-sm">
+                  <div className="card-header bg-light">
+                    <h5 className="mb-0">Community Tips</h5>
+                  </div>
+                  <div className="card-body">
+                    <ul className="list-unstyled">
+                      <li className="mb-2">
+                        <i className="fas fa-lightbulb text-warning me-2"></i>
+                        <small>Share study tips that work for your child</small>
+                      </li>
+                      <li className="mb-2">
+                        <i className="fas fa-heart text-danger me-2"></i>
+                        <small>Celebrate other students' achievements</small>
+                      </li>
+                      <li className="mb-2">
+                        <i className="fas fa-hands-helping text-success me-2"></i>
+                        <small>Offer help when parents ask questions</small>
+                      </li>
+                      <li className="mb-2">
+                        <i className="fas fa-calendar text-info me-2"></i>
+                        <small>Share information about school events</small>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
