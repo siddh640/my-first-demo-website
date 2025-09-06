@@ -218,7 +218,7 @@ class AnalyticsService {
   async getDashboardAnalytics(userId: string, userType: 'student' | 'teacher' | 'parent') {
     try {
       switch (userType) {
-        case 'student':
+        case 'student': {
           const studentPerf = await this.getStudentPerformance(userId)
           
           // Get recent activity
@@ -240,8 +240,9 @@ class AnalyticsService {
             recent_feedback_count: recentFeedback?.length || 0,
             upcoming_assignments: upcomingAssignments?.length || 0
           }
+        }
 
-        case 'teacher':
+        case 'teacher': {
           const teacherMetrics = await this.getTeacherMetrics(userId)
           const classStats = await this.getClassStatistics(userId)
           
@@ -264,8 +265,9 @@ class AnalyticsService {
             pending_grading: pendingAssignments?.length || 0,
             unread_messages: unreadMessages?.length || 0
           }
+        }
 
-        case 'parent':
+        case 'parent': {
           // Get children's data
           const { data: children } = await supabase
             .from('students')
@@ -309,6 +311,7 @@ class AnalyticsService {
             pending_assignments: pendingAssignments?.length || 0,
             unread_messages: unreadMessages?.length || 0
           }
+        }
 
         default:
           throw new Error('Invalid user type')
