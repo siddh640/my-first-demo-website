@@ -31,9 +31,10 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, loading }) => 
     return (
       <div className="card shadow-sm mb-4">
         <div className="card-body">
-          <div className="alert alert-info">
-            <h5>Demo Mode</h5>
-            <p className="mb-0">This is a demonstration of the parent dashboard. In a real application, student data would be loaded from the database.</p>
+          <div className="text-center py-4">
+            <User size={48} className="text-muted mb-3" />
+            <h5>Student Profile</h5>
+            <p className="text-muted mb-0">Student information will appear here once logged in.</p>
           </div>
         </div>
       </div>
